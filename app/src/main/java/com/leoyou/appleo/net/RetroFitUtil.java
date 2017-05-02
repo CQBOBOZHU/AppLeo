@@ -11,7 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetroFitUtil {
 
     static String gankBaseUrl = "http://gank.io";
+    static String cgankBaseUrl = "https://api.yr01.net";
     static Retrofit retrofit;
+    static Retrofit Cretrofit;
 
     public static Retrofit instance() {
         synchronized (RetroFitUtil.class) {
@@ -22,6 +24,18 @@ public class RetroFitUtil {
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                         .build();
             return retrofit;
+        }
+    }
+
+    public static Retrofit instance1() {
+        synchronized (RetroFitUtil.class) {
+            if (Cretrofit == null)
+                Cretrofit = new Retrofit.Builder()
+                        .baseUrl(cgankBaseUrl)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                        .build();
+            return Cretrofit;
         }
     }
 }
