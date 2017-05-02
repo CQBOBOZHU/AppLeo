@@ -7,5 +7,5 @@ import com.leoyou.appleo.base.BasePresenter;
  */
 
 public interface IIndexPresenter extends BasePresenter {
-    void initData();
+    void initData(String type, int num, int page);
 }

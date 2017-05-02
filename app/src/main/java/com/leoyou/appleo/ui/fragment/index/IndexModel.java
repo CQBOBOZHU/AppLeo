@@ -5,6 +5,7 @@ import android.util.Log;
 import com.leoyou.appleo.bean.FuliBean;
 import com.leoyou.appleo.net.Api;
 import com.leoyou.appleo.net.CallBack;
+import com.leoyou.appleo.net.RetroFitUtil;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -26,14 +27,10 @@ public class IndexModel implements IIndexModel {
     }
 
     @Override
-    public void initData() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://gank.io")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
+    public void initData(String type, int num, int page) {
 
-        Api api = retrofit.create(Api.class);
-        Observable<FuliBean> apiFuli = api.getFuli("福利", 50, 1);
+        Api api = RetroFitUtil.instance().create(Api.class);
+        Observable<FuliBean> apiFuli = api.getFuli(type, num, page);
         apiFuli.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<FuliBean>() {

@@ -7,5 +7,5 @@ import com.leoyou.appleo.base.BaseModel;
  */
 
 public interface IIndexModel extends BaseModel {
-    void initData();
+    void initData(String type,int num,int page);
 }

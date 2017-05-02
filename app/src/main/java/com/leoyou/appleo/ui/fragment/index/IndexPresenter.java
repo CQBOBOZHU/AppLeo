@@ -19,8 +19,8 @@ public class IndexPresenter implements IIndexPresenter, CallBack {
     }
 
     @Override
-    public void initData() {
-        iIndexModel.initData();
+    public void initData(String type, int num, int page) {
+        iIndexModel.initData(type,num,page);
     }
 
     @Override

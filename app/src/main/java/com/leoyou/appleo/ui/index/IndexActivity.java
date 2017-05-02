@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.ui.adapter.ViewPagerAdapter;
-import com.leoyou.appleo.ui.fragment.index.IndexFragment;
+import com.leoyou.appleo.ui.fragment.index.AndroidFragment;
+import com.leoyou.appleo.ui.fragment.index.FuliFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,10 @@ public class IndexActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        fragments.add(IndexFragment.newInstance(null));
-        titles.add("首页");
+        fragments.add(FuliFragment.newInstance(null));
+        fragments.add(AndroidFragment.newInstance());
+        titles.add("福利");
+        titles.add("android");
         tablayout = (TabLayout) findViewById(R.id.tablayout);
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         tablayout.setupWithViewPager(viewpager);

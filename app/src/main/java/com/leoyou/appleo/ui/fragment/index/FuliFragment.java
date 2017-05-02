@@ -1,7 +1,6 @@
 package com.leoyou.appleo.ui.fragment.index;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ImageView;
@@ -22,13 +21,16 @@ import java.util.List;
  * Created by Administrator on 2017/5/2.
  */
 
-public class IndexFragment extends BaseFragment<IIndexView, IIndexPresenter> implements IIndexView {
+public class FuliFragment extends BaseFragment<IIndexView, IIndexPresenter> implements IIndexView {
 
     RecyclerView recyclerView;
     List<FuliBean.ResultsBean> fuliBeen = new ArrayList<>();
+    private String type="福利";
+    private  int num=10;
+    private  int page=1;
 
-    public static IndexFragment newInstance(Bundle args) {
-        IndexFragment fragment = new IndexFragment();
+    public static FuliFragment newInstance(Bundle args) {
+        FuliFragment fragment = new FuliFragment();
         if (args != null)
             fragment.setArguments(args);
         return fragment;
@@ -50,7 +52,7 @@ public class IndexFragment extends BaseFragment<IIndexView, IIndexPresenter> imp
         recyclerView = getView(R.id.recyclerView);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mPresenter.initData();
+        mPresenter.initData(type,num,page);
         recyclerView.setAdapter(recycleViewAdapter);
     }
 
