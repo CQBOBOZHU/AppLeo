@@ -7,4 +7,6 @@ import com.leoyou.appleo.base.BasePresenter;
  */
 
 public interface ILoginPresenter extends BasePresenter {
+
+    void login(String account,String password);
 }

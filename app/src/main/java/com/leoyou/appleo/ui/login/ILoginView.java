@@ -7,4 +7,6 @@ import com.leoyou.appleo.base.BaseView;
  */
 
 public interface ILoginView extends BaseView {
+    void showHint(Object obj);
+    void setResultFinish(int result);
 }
