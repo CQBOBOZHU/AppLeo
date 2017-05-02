@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.base.BaseActivity;
@@ -72,10 +73,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() < 5) {
-                    account_tvLy.setError("密码不能小于6位");
+                if (s.length() < 5 || s.length() > 15) {
+                    password_tvLy.setError("密码长度在6到15之间");
                 } else {
-                    account_tvLy.setErrorEnabled(false);
+                    password_tvLy.setErrorEnabled(false);
                 }
             }
 
@@ -88,7 +89,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
 
     @Override
     public void showHint(Object obj) {
-
+        Toast.makeText(this, obj.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
