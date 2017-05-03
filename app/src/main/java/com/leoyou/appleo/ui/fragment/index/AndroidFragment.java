@@ -20,7 +20,6 @@ import java.util.List;
 
 public class AndroidFragment extends BaseFragment<IIndexPresenter> implements IIndexView {
     RecyclerView recyclerView;
-    boolean isLoading = false;
 
     public static AndroidFragment newInstance() {
         Bundle args = new Bundle();
@@ -73,22 +72,10 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            if (!isLoading()) {
-                setLoading(true);
-                showLoadView();
-                mPresenter.initData("Android", 20, 1);
-            }
+            mPresenter.initData("Android", 20, 1);
         }
     }
 
-    public boolean isLoading() {
-        return isLoading;
-    }
-
-    @Override
-    public void setLoading(boolean isloading) {
-
-    }
 
     BaseRecycleViewAdapter recycleViewAdapter = new BaseRecycleViewAdapter<FuliBean.ResultsBean, BaseRecycleViewHolder>(R.layout.fragment_android, mRbs) {
         @Override

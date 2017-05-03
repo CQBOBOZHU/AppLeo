@@ -22,9 +22,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     SparseArray<View> sparseArray = new SparseArray<>();
     int layoutResID;
     public boolean isPrepared = false;
-    public boolean isFirst = true;
     public boolean isVisible = false;
-
+    public boolean isFirst = true;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         showView(R.id.base_empty_viewstub);
     }
 
-    public void showLoadView() {
+    public void showLoadingView() {
         showView(R.id.base_loading_viewstub);
     }
 

@@ -28,7 +28,6 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
     private String type = "福利";
     private int num = 10;
     private int page = 1;
-    public boolean isLoading = false;
 
     public static FuliFragment newInstance(Bundle args) {
         FuliFragment fragment = new FuliFragment();
@@ -62,21 +61,10 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            if (!isLoading()) {
-                setLoading(true);
-                showLoadView();
-                mPresenter.initData(type, num, page);
-            }
+            mPresenter.initData(type, num, page);
         }
     }
 
-    public boolean isLoading() {
-        return isLoading;
-    }
-
-    public void setLoading(boolean loading) {
-        isLoading = loading;
-    }
 
     BaseRecycleViewAdapter recycleViewAdapter = new BaseRecycleViewAdapter<FuliBean.ResultsBean, BaseRecycleViewHolder>(R.layout.recycle_item, fuliBeen) {
         @Override
@@ -95,7 +83,7 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
     };
 
     public void setData(List<FuliBean.ResultsBean> resultsBeans) {
-        isFirst=false;
+        isFirst = false;
         if (resultsBeans == null || resultsBeans.size() == 0) {
             showEmptyView();
         } else {
@@ -109,6 +97,7 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
     public void showHint(Object o) {
         Toast.makeText(getContext(), o.toString(), Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

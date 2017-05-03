@@ -17,5 +17,5 @@ public interface IIndexView extends BaseView {
     void showEmptyView();
     void showContentView();
     void showNetErrorView();
-    void setLoading(boolean isloading);
+    void showLoadingView();
 }

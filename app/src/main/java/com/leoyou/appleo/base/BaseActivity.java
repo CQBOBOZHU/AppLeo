@@ -68,7 +68,7 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
         showView(R.id.base_empty_viewstub);
     }
 
-    public void showLoadView() {
+    public void showLoadingView() {
         showView(R.id.base_loading_viewstub);
     }
 

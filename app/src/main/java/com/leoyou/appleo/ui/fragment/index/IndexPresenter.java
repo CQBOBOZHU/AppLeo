@@ -15,6 +15,7 @@ import java.util.List;
 public class IndexPresenter implements IIndexPresenter, CallBack {
     IIndexView iIndexView;
     IIndexModel iIndexModel;
+    boolean isLoading = false;
 
     public IndexPresenter(IIndexView indexView) {
         this.iIndexView = indexView;
@@ -23,18 +24,22 @@ public class IndexPresenter implements IIndexPresenter, CallBack {
 
     @Override
     public void initData(String type, int num, int page) {
-        iIndexModel.initData(type, num, page);
+        if (!isLoading) {
+            isLoading = true;
+            iIndexView.showLoadingView();
+            iIndexModel.initData(type, num, page);
+        }
     }
 
     @Override
     public void onSuccess(Object o) {
-        iIndexView.setLoading(false);
+        isLoading = false;
         iIndexView.setData((List<FuliBean.ResultsBean>) o);
     }
 
     @Override
     public void onError(Throwable e) {
-        iIndexView.setLoading(false);
+        isLoading = false;
         Log.v("onError", e.getMessage() == null ? "" : e.getMessage());
         if (ExceptionUtil.getExceptionCode(e) == ExceptionUtil.NET_ERROE) {
             iIndexView.showNetErrorView();
@@ -44,7 +49,7 @@ public class IndexPresenter implements IIndexPresenter, CallBack {
 
     @Override
     public void onCompleted() {
-        iIndexView.setLoading(false);
+        isLoading = false;
     }
 
 }
