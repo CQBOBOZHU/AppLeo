@@ -104,4 +104,9 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
         super.setUserVisibleHint(isVisibleToUser);
         loadData();
     }
+
+    @Override
+    protected void loadMessage() {
+        loadData();
+    }
 }

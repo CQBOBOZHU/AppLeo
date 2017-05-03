@@ -116,4 +116,9 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
         isVisible = isVisibleToUser;
         loadData();
     }
+
+    @Override
+    protected void loadMessage() {
+        loadData();
+    }
 }
