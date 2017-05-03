@@ -1,15 +1,11 @@
 package com.leoyou.appleo.ui.fragment.index;
 
-import android.util.Log;
 
 import com.leoyou.appleo.bean.FuliBean;
 import com.leoyou.appleo.net.Api;
 import com.leoyou.appleo.net.CallBack;
 import com.leoyou.appleo.net.RetroFitUtil;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

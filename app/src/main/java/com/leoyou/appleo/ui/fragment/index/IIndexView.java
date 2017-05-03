@@ -13,4 +13,9 @@ public interface IIndexView extends BaseView {
 
     void setData(List<FuliBean.ResultsBean> mRbs);
     void showHint(Object o);
+    void showloadErrorView();
+    void showEmptyView();
+    void showContentView();
+    void showNetErrorView();
+    void setLoading(boolean isloading);
 }

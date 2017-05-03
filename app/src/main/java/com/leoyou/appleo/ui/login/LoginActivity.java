@@ -25,6 +25,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
     }
 
     @Override
+    protected int getToobarId() {
+        return R.layout.toolbar;
+    }
+
+    @Override
     protected ILoginView getIView() {
         return this;
     }

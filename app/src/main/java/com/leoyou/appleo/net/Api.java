@@ -18,9 +18,6 @@ public interface Api {
     @GET("/api/data/{type}/{size}/{page}")
     Observable<FuliBean> getFuli(@Path("type") String type, @Path("size") int size, @Path("page") int page);
 
-    //https://api.yr01.net/leoyonapp/order/sellerOrderList
-    //token ebaf2b6788ab434dbb09c13071e1b4b8
-//    "token":"ebaf2b6788ab434dbb09c13071e1b4b8","listStatus":0,"memberid":"5
     @POST("/leoyonapp/order/sellerOrderList")
     Observable<OrderBean> getOrderList(@Query("memberId") String memberId,
                                        @Query("token") String token,

@@ -7,11 +7,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.leoyou.appleo.R;
+import com.leoyou.appleo.base.BaseFragment;
 import com.leoyou.appleo.bean.FuliBean;
 import com.leoyou.appleo.photo.ImageLoader;
 import com.leoyou.appleo.ui.adapter.BaseRecycleViewAdapter;
 import com.leoyou.appleo.ui.adapter.BaseRecycleViewHolder;
-import com.leoyou.appleo.ui.fragment.BaseFragment;
 import com.leoyou.appleo.util.DensityUtil;
 
 import java.util.ArrayList;
@@ -21,13 +21,14 @@ import java.util.List;
  * Created by Administrator on 2017/5/2.
  */
 
-public class FuliFragment extends BaseFragment<IIndexView, IIndexPresenter> implements IIndexView {
+public class FuliFragment extends BaseFragment<IIndexPresenter> implements IIndexView {
 
     RecyclerView recyclerView;
     List<FuliBean.ResultsBean> fuliBeen = new ArrayList<>();
-    private String type="福利";
-    private  int num=10;
-    private  int page=1;
+    private String type = "福利";
+    private int num = 10;
+    private int page = 1;
+    public boolean isLoading = false;
 
     public static FuliFragment newInstance(Bundle args) {
         FuliFragment fragment = new FuliFragment();
@@ -36,24 +37,45 @@ public class FuliFragment extends BaseFragment<IIndexView, IIndexPresenter> impl
         return fragment;
     }
 
-
     @Override
-    protected int getLayout() {
-        return R.layout.fragment_index;
+    protected IIndexPresenter getPresenter() {
+        return new IndexPresenter(this);
     }
 
     @Override
-    protected IIndexPresenter getPresenter() {
-        return new IndexPresenter(mView);
+    protected int getLayoutId() {
+        return R.layout.fragment_index;
     }
 
     @Override
     protected void initView() {
         recyclerView = getView(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mPresenter.initData(type,num,page);
         recyclerView.setAdapter(recycleViewAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    public void loadData() {
+        if (isFirst && isPrepared && isVisible) {
+            if (!isLoading()) {
+                setLoading(true);
+                showLoadView();
+                mPresenter.initData(type, num, page);
+            }
+        }
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
     }
 
     BaseRecycleViewAdapter recycleViewAdapter = new BaseRecycleViewAdapter<FuliBean.ResultsBean, BaseRecycleViewHolder>(R.layout.recycle_item, fuliBeen) {
@@ -73,8 +95,14 @@ public class FuliFragment extends BaseFragment<IIndexView, IIndexPresenter> impl
     };
 
     public void setData(List<FuliBean.ResultsBean> resultsBeans) {
-        recycleViewAdapter.setmData(resultsBeans);
-        recycleViewAdapter.notifyDataSetChanged();
+        isFirst=false;
+        if (resultsBeans == null || resultsBeans.size() == 0) {
+            showEmptyView();
+        } else {
+            showContentView();
+            recycleViewAdapter.setmData(resultsBeans);
+            recycleViewAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -82,4 +110,10 @@ public class FuliFragment extends BaseFragment<IIndexView, IIndexPresenter> impl
         Toast.makeText(getContext(), o.toString(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
+        loadData();
+    }
 }
