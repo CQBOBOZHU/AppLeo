@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/2.
  */
 
-public class IndexPresenter implements IIndexPresenter, CallBack {
+public class IndexPresenter implements IIndexPresenter, CallBack<FuliBean> {
     IIndexView iIndexView;
     IIndexModel iIndexModel;
     boolean isLoading = false;
@@ -31,10 +31,11 @@ public class IndexPresenter implements IIndexPresenter, CallBack {
         }
     }
 
+
     @Override
-    public void onSuccess(Object o) {
+    public void onSuccess(FuliBean o) {
         isLoading = false;
-        iIndexView.setData((List<FuliBean.ResultsBean>) o);
+        iIndexView.setData(o.getResults());
     }
 
     @Override

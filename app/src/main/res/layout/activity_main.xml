@@ -33,4 +33,8 @@
         android:layout_height="wrap_content"
         android:onClick="getOrderList"
         android:text="获取订单列表" />
+    <com.leoyou.appleo.ui.wight.PullRefreshListView
+        android:id="@+id/PullRefreshListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.leoyou.appleo.ui.wight.PullRefreshListView>
 </LinearLayout>

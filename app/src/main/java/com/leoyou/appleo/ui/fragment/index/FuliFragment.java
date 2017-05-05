@@ -53,6 +53,7 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
         recyclerView.setAdapter(recycleViewAdapter);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -93,7 +94,6 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
         }
     }
 
-    @Override
     public void showHint(Object o) {
         Toast.makeText(getContext(), o.toString(), Toast.LENGTH_SHORT).show();
     }

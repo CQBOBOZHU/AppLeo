@@ -43,6 +43,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     }
 
 
+
     protected abstract int getLayoutId();
 
     protected abstract void initView();

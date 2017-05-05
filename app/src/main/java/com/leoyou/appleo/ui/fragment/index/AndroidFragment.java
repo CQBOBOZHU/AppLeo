@@ -46,6 +46,7 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
         recyclerView.setAdapter(recycleViewAdapter);
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -54,7 +55,6 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
 
     List<FuliBean.ResultsBean> mRbs = new ArrayList<>();
 
-    @Override
     public void setData(List<FuliBean.ResultsBean> mRbs) {
         isFirst = false;
         if (mRbs != null && mRbs.size() > 0) {
@@ -65,7 +65,6 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
         }
     }
 
-    @Override
     public void showHint(Object o) {
         Toast.makeText(getContext(), o.toString(), Toast.LENGTH_SHORT).show();
     }

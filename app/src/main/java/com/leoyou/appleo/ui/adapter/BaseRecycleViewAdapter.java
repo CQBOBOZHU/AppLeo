@@ -26,17 +26,34 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewHolder>
     @Override
     public K onCreateViewHolder(ViewGroup parent, int viewType) {
         this.mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(layoutId, parent,false);
+        View view = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         K baseViewHolder = (K) new BaseRecycleViewHolder(view);
         return baseViewHolder;
     }
 
-    public void setmData(List<T> mData) {
-        this.mData = mData;
+    public void setmData(List<T> data) {
+        this.mData = data;
         this.notifyDataSetChanged();
     }
 
-    public abstract void onBdViewHolder(K object, final int position);
+    public void addData(List<T> data) {
+        int start = getItemCount();
+        this.mData.addAll(data);
+        notifyItemRangeInserted(start, getItemCount());
+    }
+
+    public void insertData(List<T> data) {
+        for (T t : data) {
+            insertData(t, getItemCount());
+        }
+    }
+
+    public void insertData(T bean, int position) {
+        this.mData.add(position, bean);
+        notifyItemChanged(position);
+    }
+
+    public abstract void onBdViewHolder(K viewHolder, final int position);
 
     @Override
     public void onBindViewHolder(BaseRecycleViewHolder holder, final int position) {
