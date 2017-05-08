@@ -12,21 +12,29 @@ import com.leoyou.appleo.bean.DoubanMovieBean;
 public class DoubanContract {
 
     interface IDoubanView extends BaseView {
-        void  onrefresh();
-        void  onLoadMore();
-        void  setData(DoubanMovieBean doubanMovieBean);
-        void  addData(DoubanMovieBean doubanMovieBean);
-        void  showHint(String msg);
+        void onrefresh();
+
+        void onLoadMore();
+
+        void setData(DoubanMovieBean doubanMovieBean);
+
+        void addData(DoubanMovieBean doubanMovieBean);
+
+        void showHint(String msg);
+
+        void showBaseView(int code);
     }
 
     interface IDoubanModel extends BaseModel {
-        void loadData(int start,int count);
-        void loadMoreData(int start,int count);
+        void loadData(int start, int count);
+
+        void loadMoreData(int start, int count);
 
     }
 
     interface IDoubanPresenter extends BasePresenter {
-        void  onrefresh();
-        void  onLoadMore();
+        void onrefresh();
+
+        void onLoadMore();
     }
 }

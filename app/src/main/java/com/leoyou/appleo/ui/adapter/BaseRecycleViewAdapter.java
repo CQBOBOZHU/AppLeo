@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemClickListener;
+import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemLongClickListener;
+
 import java.util.List;
 
 
@@ -42,6 +45,10 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewHolder>
         notifyItemRangeInserted(start, getItemCount());
     }
 
+    public List<T> getmData() {
+        return mData;
+    }
+
     public void insertData(List<T> data) {
         for (T t : data) {
             insertData(t, getItemCount());
@@ -57,14 +64,41 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewHolder>
 
     @Override
     public void onBindViewHolder(BaseRecycleViewHolder holder, final int position) {
+        holder.getRootView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recyclerItemClickListener != null) {
+                    recyclerItemClickListener.recyclerItemClick(position);
+                }
+            }
+        });
+        holder.getRootView().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (recyclerItemLongClickListener!=null){
+                    recyclerItemLongClickListener.recyclerItemLongClick(position);
+                    return true;
+                }
+                return false;
+            }
+        });
         onBdViewHolder((K) holder, position);
     }
 
     @Override
     public int getItemCount() {
-        if (mData == null && mData.size() == 0)
-            return 0;
-        else
-            return mData.size();
+        return null != mData ? mData.size() : 0;
+    }
+
+    IRecyclerItemClickListener recyclerItemClickListener;
+
+    public void setRecyclerItemClickListener(IRecyclerItemClickListener recyclerItemClickListener) {
+        this.recyclerItemClickListener = recyclerItemClickListener;
+    }
+
+    IRecyclerItemLongClickListener recyclerItemLongClickListener;
+
+    public void setRecyclerItemLongClickListener(IRecyclerItemLongClickListener recyclerItemLongClickListener) {
+        this.recyclerItemLongClickListener = recyclerItemLongClickListener;
     }
 }

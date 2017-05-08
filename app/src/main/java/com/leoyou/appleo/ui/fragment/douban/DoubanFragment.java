@@ -1,22 +1,27 @@
 package com.leoyou.appleo.ui.fragment.douban;
 
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.base.BaseFragment;
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.ui.adapter.DoubanMovieAdapter;
+import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemClickListener;
+import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemLongClickListener;
+import com.leoyou.appleo.ui.adapter.listener.RecyclerItemOnTouchListener;
 
 /**
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanFragment extends BaseFragment<DoubanPresenter> implements DoubanContract.IDoubanView {
+public class DoubanFragment extends BaseFragment<DoubanPresenter> implements DoubanContract.IDoubanView, IRecyclerItemClickListener, IRecyclerItemLongClickListener {
     RecyclerView recyclerView;
     DoubanMovieAdapter doubanMovieAdapter;
 
@@ -28,9 +33,87 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
     @Override
     protected void initView() {
         recyclerView = getView(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        doubanMovieAdapter = new DoubanMovieAdapter(R.layout.item_douban_movie, null);
+        //点击事件 方法一
+        doubanMovieAdapter.setRecyclerItemClickListener(this);
+        doubanMovieAdapter.setRecyclerItemLongClickListener(this);
+        //点击事件 方法二
+//        recyclerView.addOnItemTouchListener(new RecyclerItemOnTouchListener(recyclerView) {
+//            @Override
+//            public void onItemClick(RecyclerView.ViewHolder vh) {
+//                Toast.makeText(getActivity(), "当前点击的是:" +vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onLongItemClick(RecyclerView.ViewHolder vh) {
+//                Toast.makeText(getActivity(), "当前长按的是:" +vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        //点击事件 方法三
+//        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//            long startTime = 0;
+//            boolean isLongPress;
+//            boolean isPress;
+//            RecyclerView.ViewHolder vh;
+//
+//            @Override
+//            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+//                Log.v("onInterceptTouchEvent", e.getX() + "==" + e.getY() + "");
+//                switch (e.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        startTime = System.currentTimeMillis();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        long endTime = System.currentTimeMillis();
+//                        View view = rv.findChildViewUnder(e.getX(), e.getY());
+//                        vh = rv.getChildViewHolder(view);
+//                        if (endTime - startTime > 500) {
+//                            isLongPress = true;
+//                        } else {
+//                            isPress = true;
+//                            recyclerItemClick11("短时间点击", vh);
+//                        }
+//                        break;
+//                }
+//                if (isLongPress) {
+//                    recyclerItemClick11("长时间点击时间", vh);
+//                } else if (isPress) {
+//                    recyclerItemClick11("短时间点击", vh);
+//                }
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+//                Log.v("onTouchEvent", e.getX() + "==" + e.getY() + "");
+//            }
+//
+//            @Override
+//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+//
+//            }
+//        });
+        recyclerView.setAdapter(doubanMovieAdapter);
     }
 
+    public void recyclerItemClick11(String msg, RecyclerView.ViewHolder vh) {
+        Toast.makeText(getActivity(), msg + vh.getAdapterPosition(), Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    public void initData() {
+        if (isFirst && isPrepared && isVisible) {
+            onrefresh();
+        }
+    }
 
     @Override
     protected DoubanPresenter getPresenter() {
@@ -39,6 +122,7 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
 
     @Override
     public void onrefresh() {
+        showLoadingView();
         mPresenter.onrefresh();
     }
 
@@ -50,10 +134,7 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
     @Override
     public void setData(DoubanMovieBean doubanMovieBean) {
         showContentView();
-        if (doubanMovieAdapter == null) {
-            doubanMovieAdapter = new DoubanMovieAdapter(R.layout.item_douban_movie, doubanMovieBean.getSubjects());
-        } else
-            doubanMovieAdapter.setmData(doubanMovieBean.getSubjects());
+        doubanMovieAdapter.setmData(doubanMovieBean.getSubjects());
     }
 
     @Override
@@ -66,8 +147,45 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showBaseView(int code) {
+        switch (code) {
+            case 0:
+                showLoadingView();
+                break;
+            case 1:
+                showContentView();
+                break;
+            case 2:
+                showloadErrorView();
+                break;
+            case 3:
+                showNetErrorView();
+                break;
+            case 4:
+                showEmptyView();
+                break;
+        }
+    }
+
     public static Fragment newInstance() {
 
         return new DoubanFragment();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        initData();
+    }
+
+    @Override
+    public void recyclerItemClick(int position) {
+        Toast.makeText(getActivity(), doubanMovieAdapter.getmData().get(position).getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void recyclerItemLongClick(int position) {
+        Toast.makeText(getActivity(), "还多按5秒,这部" + doubanMovieAdapter.getmData().get(position).getTitle() + "就能马上播放。", Toast.LENGTH_SHORT).show();
     }
 }

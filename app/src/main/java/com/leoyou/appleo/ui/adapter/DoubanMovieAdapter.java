@@ -1,6 +1,9 @@
 package com.leoyou.appleo.ui.adapter;
 
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.bean.DoubanMovieBean;
@@ -21,7 +24,14 @@ public class DoubanMovieAdapter extends BaseRecycleViewAdapter<DoubanMovieBean.S
     @Override
     public void onBdViewHolder(BaseRecycleViewHolder viewHolder, int position) {
         DoubanMovieBean.SubjectsBean subjectsBean=mData.get(position);
-        ImageLoader.disImage(mContext,subjectsBean.getImages().getSmall(), (ImageView) viewHolder.getView(R.id.item_movie_img));
+        ImageLoader.disImage(mContext,subjectsBean.getImages().getLarge(), (ImageView) viewHolder.getView(R.id.item_movie_img));
         viewHolder.setText(R.id.item_movie_title,subjectsBean.getTitle());
+        viewHolder.getView(R.id.item_movie_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("this","图片点击事件");
+                Toast.makeText(mContext, "我是图片点击事件", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

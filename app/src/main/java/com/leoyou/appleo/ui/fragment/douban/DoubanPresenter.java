@@ -2,6 +2,7 @@ package com.leoyou.appleo.ui.fragment.douban;
 
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.net.CallBack;
+import com.leoyou.appleo.util.ExceptionUtil;
 
 /**
  * Created by Administrator on 2017/5/5.
@@ -23,7 +24,9 @@ public class DoubanPresenter implements DoubanContract.IDoubanPresenter, CallBac
 
     @Override
     public void onError(Throwable e) {
-        iBaseView.showHint("网络错误");
+//        iBaseView.showHint("网络错误");
+//        ExceptionUtil.getExceptionCode(e);
+        iBaseView.showBaseView(4);
     }
 
     @Override
