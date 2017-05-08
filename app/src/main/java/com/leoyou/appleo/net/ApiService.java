@@ -1,5 +1,6 @@
 package com.leoyou.appleo.net;
 
+import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.bean.FuliBean;
 import com.leoyou.appleo.bean.OrderBean;
@@ -37,4 +38,8 @@ public interface ApiService {
 
     @GET("/v2/movie/top250")
     Observable<DoubanMovieBean> getDoubanMovie(@Query("start")int start,@Query("count")int count);
+
+    @GET("/v2/book/search")
+    Observable<BookBean> getDoubanBook(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
 }

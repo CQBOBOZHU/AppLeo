@@ -2,17 +2,16 @@ package com.leoyou.appleo.ui.fragment.douban;
 
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.net.CallBack;
-import com.leoyou.appleo.util.ExceptionUtil;
 
 /**
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanPresenter implements DoubanContract.IDoubanPresenter, CallBack<DoubanMovieBean> {
-    DoubanContract.IDoubanView iBaseView;
-    DoubanContract.IDoubanModel iDoubanModel;
+public class DoubanPresenter implements DoubanController.IDoubanPresenter, CallBack<DoubanMovieBean> {
+    DoubanController.IDoubanView iBaseView;
+    DoubanController.IDoubanModel iDoubanModel;
 
-    public DoubanPresenter(DoubanContract.IDoubanView iBaseView) {
+    public DoubanPresenter(DoubanController.IDoubanView iBaseView) {
         this.iBaseView = iBaseView;
         iDoubanModel = new DoubanModel(this);
     }

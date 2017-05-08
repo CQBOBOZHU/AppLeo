@@ -51,4 +51,9 @@ public class HttpUtil {
     public static void getDoubanMovie(int start, int count, CallBack callBack) {
         RetroFitUtil.subScribe(RetroFitUtil.initObservable(RetroFitUtil.creatService(RetroFitUtil.API_DOUBAN).create(ApiService.class).getDoubanMovie(start, count)), callBack);
     }
+
+    public static void getDoubanBook(String tag, int start, int count, CallBack callBack) {
+        RetroFitUtil.subScribe(RetroFitUtil.initObservable(RetroFitUtil.creatService(RetroFitUtil.API_DOUBAN).create(ApiService.class).getDoubanBook(tag, start, count)), callBack);
+
+    }
 }

@@ -9,7 +9,7 @@ import com.leoyou.appleo.bean.DoubanMovieBean;
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanContract {
+public class DoubanController {
 
     interface IDoubanView extends BaseView {
         void onrefresh();

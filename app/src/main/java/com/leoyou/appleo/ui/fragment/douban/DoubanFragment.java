@@ -1,12 +1,8 @@
 package com.leoyou.appleo.ui.fragment.douban;
 
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.leoyou.appleo.R;
@@ -15,13 +11,12 @@ import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.ui.adapter.DoubanMovieAdapter;
 import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemClickListener;
 import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemLongClickListener;
-import com.leoyou.appleo.ui.adapter.listener.RecyclerItemOnTouchListener;
 
 /**
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanFragment extends BaseFragment<DoubanPresenter> implements DoubanContract.IDoubanView, IRecyclerItemClickListener, IRecyclerItemLongClickListener {
+public class DoubanFragment extends BaseFragment<DoubanPresenter> implements DoubanController.IDoubanView, IRecyclerItemClickListener, IRecyclerItemLongClickListener {
     RecyclerView recyclerView;
     DoubanMovieAdapter doubanMovieAdapter;
 
@@ -133,6 +128,7 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
 
     @Override
     public void setData(DoubanMovieBean doubanMovieBean) {
+        isFirst = false;
         showContentView();
         doubanMovieAdapter.setmData(doubanMovieBean.getSubjects());
     }

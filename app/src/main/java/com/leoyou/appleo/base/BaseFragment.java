@@ -3,6 +3,7 @@ package com.leoyou.appleo.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,6 +102,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         view.setVisibility(View.VISIBLE);
     }
 
+    public  View  getEmptyView(){
+        View view = sparseArray.get(R.id.base_empty_viewstub);
+        if (view==null){
+            ViewStub viewStub = getView(R.id.base_empty_viewstub);
+            view = viewStub.inflate();
+            sparseArray.put(R.id.base_empty_viewstub, view);
+        }
+        return view;
+    }
+
+
     /**
      * 加载失败和网络错误后，点击按钮
      */
@@ -111,5 +123,21 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible=isVisibleToUser;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isFirst=true;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
