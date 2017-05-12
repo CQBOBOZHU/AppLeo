@@ -1,12 +1,13 @@
 package com.leoyou.appleo.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/8.
  */
 
-public class BookBean {
+public class BookBean  {
 
 
     /**
@@ -53,7 +54,7 @@ public class BookBean {
         this.books = books;
     }
 
-    public static class BooksBean {
+    public static class BooksBean implements Serializable {
         /**
          * rating : {"max":10,"numRaters":102990,"average":"9.2","min":0}
          * subtitle :
@@ -298,7 +299,7 @@ public class BookBean {
             this.translator = translator;
         }
 
-        public static class RatingBean {
+        public static class RatingBean implements Serializable{
             /**
              * max : 10
              * numRaters : 102990
@@ -344,7 +345,7 @@ public class BookBean {
             }
         }
 
-        public static class ImagesBean {
+        public static class ImagesBean implements Serializable{
             /**
              * small : https://img3.doubanio.com/spic/s6384944.jpg
              * large : https://img3.doubanio.com/lpic/s6384944.jpg
@@ -380,7 +381,7 @@ public class BookBean {
             }
         }
 
-        public static class SeriesBean {
+        public static class SeriesBean implements Serializable{
             /**
              * id : 10489
              * title : 新经典文库:加西亚·马尔克斯作品
@@ -406,7 +407,7 @@ public class BookBean {
             }
         }
 
-        public static class TagsBean {
+        public static class TagsBean implements Serializable{
             /**
              * count : 35085
              * name : 百年孤独

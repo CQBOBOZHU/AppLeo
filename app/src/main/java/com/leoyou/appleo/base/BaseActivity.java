@@ -121,15 +121,15 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
     }
 
 
-    protected abstract V getIView();
-
     protected abstract int getLayoutId();
+
+    protected abstract V getIView();
 
     public abstract P getPresenter();
 
     protected abstract void initView(Bundle savedInstanceState);
 
-    public  <T extends View> T getView(int viewId){
+    public <T extends View> T getView(int viewId) {
 
         return (T) baseView.findViewById(viewId);
     }

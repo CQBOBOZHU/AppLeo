@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="com.leoyou.appleo.MainActivity">
 
     <TextView
@@ -33,6 +34,11 @@
         android:layout_height="wrap_content"
         android:onClick="getOrderList"
         android:text="获取订单列表" />
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="200dp" />
     <com.leoyou.appleo.ui.wight.PullRefreshListView
         android:id="@+id/PullRefreshListView"
         android:layout_width="match_parent"

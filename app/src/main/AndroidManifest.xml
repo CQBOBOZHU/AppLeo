@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".ui.index.IndexActivity"></activity>
         <activity android:name=".ui.login.LoginActivity"></activity>
+        <activity android:name=".ui.bookdetails.BookDetailsActivity"></activity>
     </application>
 
 </manifest>

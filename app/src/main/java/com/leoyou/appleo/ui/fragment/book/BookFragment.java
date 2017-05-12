@@ -1,5 +1,6 @@
 package com.leoyou.appleo.ui.fragment.book;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,9 @@ import com.leoyou.appleo.base.BaseFragment;
 import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.ui.adapter.BookAdapter;
 import com.leoyou.appleo.ui.adapter.listener.RecyclerItemOnTouchListener;
+import com.leoyou.appleo.ui.bookdetails.BookDetailsActivity;
+
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2017/5/8.
@@ -49,7 +53,10 @@ public class BookFragment extends BaseFragment<BookPresenter> implements BookCon
         recyclerView.addOnItemTouchListener(new RecyclerItemOnTouchListener(recyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                Toast.makeText(getActivity(), "点你妹"+vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), BookDetailsActivity.class);
+                intent.putExtra("data", bookAdapter.getmData().get(vh.getAdapterPosition()));
+                getActivity().startActivity(intent);
+//                Toast.makeText(getActivity(), "点你妹"+vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -48,7 +48,6 @@ public class RetroFitUtil {
             @Override
             public void onCompleted() {
                 callBack.onCompleted();
-                ;
             }
 
             @Override
