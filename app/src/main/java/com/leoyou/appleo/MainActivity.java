@@ -7,9 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.leoyou.appleo.bean.OrderBean;
-import com.leoyou.appleo.net.CallBack;
-import com.leoyou.appleo.net.HttpUtil;
 import com.leoyou.appleo.photo.ImageLoader;
 import com.leoyou.appleo.ui.adapter.BaseTaskAdapter;
 import com.leoyou.appleo.ui.adapter.BaseViewHolder;
@@ -60,22 +57,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getOrderList(View view) {
-        HttpUtil.getPhone("5", "ec008e8d07924448a71a2c0915775191", "0", 10, 1, new CallBack<OrderBean>() {
-
-            @Override
-            public void onSuccess(OrderBean o) {
-                Log.v("this", o.getMSG() + o.getRESULT() + o.getDATA());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.v("this", e.getMessage());
-            }
-
-            @Override
-            public void onCompleted() {
-                Log.v("this", "onCompleted");
-            }
-        });
     }
 }

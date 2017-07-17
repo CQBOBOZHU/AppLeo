@@ -1,5 +1,6 @@
 package com.leoyou.appleo.ui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -37,11 +38,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
-    }
-
-    @Override
-    public LoginPresenter getPresenter() {
-        return new LoginPresenter(mBaseView);
     }
 
     @Override
@@ -105,5 +101,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
 
     public void onLogin(View view) {
         mPresenter.login(account_edt.getText().toString(), password_edt.getText().toString());
+    }
+
+    @Override
+    public Context getContext() {
+        return null;
     }
 }

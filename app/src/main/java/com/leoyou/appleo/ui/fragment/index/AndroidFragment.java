@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2017/5/2.
  */
 
-public class AndroidFragment extends BaseFragment<IIndexPresenter> implements IIndexView {
+public class AndroidFragment extends BaseFragment<IIndexView,IndexPresenter> implements IIndexView {
     RecyclerView recyclerView;
 
     public static AndroidFragment newInstance() {
@@ -31,11 +31,6 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_index;
-    }
-
-    @Override
-    protected IIndexPresenter getPresenter() {
-        return new IndexPresenter(this);
     }
 
 
@@ -71,7 +66,7 @@ public class AndroidFragment extends BaseFragment<IIndexPresenter> implements II
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            mPresenter.initData("Android", 20, 1);
+            mPresenter.loadFuli();
         }
     }
 

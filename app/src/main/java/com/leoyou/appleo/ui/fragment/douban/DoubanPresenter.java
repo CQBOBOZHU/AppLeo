@@ -1,5 +1,7 @@
 package com.leoyou.appleo.ui.fragment.douban;
 
+import com.leoyou.appleo.base.BasePresenterImpl;
+import com.leoyou.appleo.base.BaseView;
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.net.CallBack;
 
@@ -7,39 +9,21 @@ import com.leoyou.appleo.net.CallBack;
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanPresenter implements DoubanController.IDoubanPresenter, CallBack<DoubanMovieBean> {
-    DoubanController.IDoubanView iBaseView;
-    DoubanController.IDoubanModel iDoubanModel;
-
-    public DoubanPresenter(DoubanController.IDoubanView iBaseView) {
-        this.iBaseView = iBaseView;
-        iDoubanModel = new DoubanModel(this);
-    }
+public class DoubanPresenter extends BasePresenterImpl<DoubanController.IDoubanView> implements DoubanController.IDoubanPresenter {
 
     @Override
-    public void onSuccess(DoubanMovieBean o) {
-        iBaseView.setData(o);
-    }
-
-    @Override
-    public void onError(Throwable e) {
-//        iBaseView.showHint("网络错误");
-//        ExceptionUtil.getExceptionCode(e);
-        iBaseView.showBaseView(4);
-    }
-
-    @Override
-    public void onCompleted() {
-
+    public void attachView(DoubanController.IDoubanView view) {
+        super.attachView(view);
     }
 
     @Override
     public void onrefresh() {
-        iDoubanModel.loadData(0, 10);
+
     }
 
     @Override
     public void onLoadMore() {
 
     }
+
 }

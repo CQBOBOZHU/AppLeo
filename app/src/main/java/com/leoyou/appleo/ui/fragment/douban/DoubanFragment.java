@@ -16,7 +16,7 @@ import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemLongClickListener;
  * Created by Administrator on 2017/5/5.
  */
 
-public class DoubanFragment extends BaseFragment<DoubanPresenter> implements DoubanController.IDoubanView, IRecyclerItemClickListener, IRecyclerItemLongClickListener {
+public class DoubanFragment extends BaseFragment<DoubanController.IDoubanView,DoubanPresenter> implements DoubanController.IDoubanView, IRecyclerItemClickListener, IRecyclerItemLongClickListener {
     RecyclerView recyclerView;
     DoubanMovieAdapter doubanMovieAdapter;
 
@@ -111,11 +111,6 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
     }
 
     @Override
-    protected DoubanPresenter getPresenter() {
-        return new DoubanPresenter(this);
-    }
-
-    @Override
     public void onrefresh() {
         showLoadingView();
         mPresenter.onrefresh();
@@ -153,7 +148,7 @@ public class DoubanFragment extends BaseFragment<DoubanPresenter> implements Dou
                 showContentView();
                 break;
             case 2:
-                showloadErrorView();
+                showLoadErrorView();
                 break;
             case 3:
                 showNetErrorView();

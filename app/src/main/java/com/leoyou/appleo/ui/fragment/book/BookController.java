@@ -2,9 +2,12 @@ package com.leoyou.appleo.ui.fragment.book;
 
 import com.leoyou.appleo.base.BaseModel;
 import com.leoyou.appleo.base.BasePresenter;
+import com.leoyou.appleo.base.BasePresenterImpl;
 import com.leoyou.appleo.base.BaseView;
 import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.net.CallBack;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/8.
@@ -20,9 +23,9 @@ public class BookController {
 
         void loadMore();
 
-        void setNewData(BookBean t);
+        void setNewData(List<BookBean.BooksBean> mData);
 
-        void addData(BookBean t);
+        void addData(List<BookBean.BooksBean> mData);
 
         void  showBaseView(int code);
 
@@ -30,12 +33,8 @@ public class BookController {
         void stopLoadMore(boolean isSuccess);
     }
 
-    interface IBookModel extends BaseModel {
-        void loadData(String tag, int start, int count, CallBack<BookBean> callBack);
 
-    }
-
-    interface IBookPresenter extends BasePresenter {
+    interface IBookPresenter extends BasePresenter<IBookView> {
         void loadData();
 
         void loadMoreData();

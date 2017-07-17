@@ -11,19 +11,21 @@ import com.andview.refreshview.XRefreshView;
 import com.andview.refreshview.XRefreshViewFooter;
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.base.BaseFragment;
+import com.leoyou.appleo.base.BaseView;
 import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.ui.adapter.BookAdapter;
 import com.leoyou.appleo.ui.adapter.listener.RecyclerItemOnTouchListener;
 import com.leoyou.appleo.ui.bookdetails.BookDetailsActivity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/8.
  *
  *
  */
-public class BookFragment extends BaseFragment<BookPresenter> implements BookController.IBookView {
+public class BookFragment extends BaseFragment<BookController.IBookView,BookPresenter> implements BookController.IBookView {
     RecyclerView recyclerView;
     BookAdapter bookAdapter;
     XRefreshView xrefreshView;
@@ -91,10 +93,6 @@ public class BookFragment extends BaseFragment<BookPresenter> implements BookCon
         });
     }
 
-    @Override
-    protected BookPresenter getPresenter() {
-        return new BookPresenter(this);
-    }
 
     @Override
     public void showHint(String msg) {
@@ -116,20 +114,30 @@ public class BookFragment extends BaseFragment<BookPresenter> implements BookCon
     }
 
     @Override
-    public void setNewData(BookBean t) {
-        if (t.getBooks().size() == 0) {
-            showEmptyView(true);
-        } else {
-            isFirst = false;
-            showEmptyView(false);
-            bookAdapter.setmData(t.getBooks());
-        }
+    public void setNewData(List<BookBean.BooksBean> mData) {
+        bookAdapter.setmData(mData);
     }
 
     @Override
-    public void addData(BookBean t) {
-        bookAdapter.addmData(t.getBooks());
+    public void addData(List<BookBean.BooksBean> mData) {
+        bookAdapter.addmData(mData);
     }
+
+//    @Override
+//    public void setNewData(BookBean t) {
+//        if (t.getBooks().size() == 0) {
+//            showEmptyView(true);
+//        } else {
+//            isFirst = false;
+//            showEmptyView(false);
+//            bookAdapter.setmData(t.getBooks());
+//        }
+//    }
+//
+//    @Override
+//    public void addData(BookBean t) {
+//        bookAdapter.addmData(t.getBooks());
+//    }
 
     private void showEmptyView(boolean isShow) {
         if (isShow) {
@@ -153,7 +161,7 @@ public class BookFragment extends BaseFragment<BookPresenter> implements BookCon
                 showContentView();
                 break;
             case 2:
-                showloadErrorView();
+                showLoadErrorView();
                 break;
             case 3:
                 showEmptyView(true);
@@ -182,4 +190,5 @@ public class BookFragment extends BaseFragment<BookPresenter> implements BookCon
             loading();
         }
     }
+
 }

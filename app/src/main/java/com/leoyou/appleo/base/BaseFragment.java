@@ -13,11 +13,13 @@ import android.widget.FrameLayout;
 
 import com.leoyou.appleo.R;
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * Created by Administrator on 2017/5/3.
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImpl<V>> extends Fragment implements BaseView{
     View baseView;
     public P mPresenter;
     SparseArray<View> sparseArray = new SparseArray<>();
@@ -37,7 +39,8 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
         rootView.setLayoutParams(params);
         sparseArray.put(layoutResID, rootView);
         contentParent.addView(rootView);
-        mPresenter = getPresenter();
+        mPresenter = getInstance(this,1);
+        mPresenter.attachView((V) this);
         initView();
         isPrepared=true;
         return baseView;
@@ -45,11 +48,28 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
 
 
 
+
+
+    public <T> T getInstance(Object o, int i) {
+        try {
+            return ((Class<T>) ((ParameterizedType) (o.getClass()
+                    .getGenericSuperclass())).getActualTypeArguments()[i])
+                    .newInstance();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     protected abstract int getLayoutId();
 
     protected abstract void initView();
 
-    protected abstract P getPresenter();
 
     public <T extends View> T getView(int viewId) {
         return (T) baseView.findViewById(viewId);
@@ -62,8 +82,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void showLoadingView() {
         showView(R.id.base_loading_viewstub);
     }
-
-    public void showloadErrorView() {
+    /**
+     * 加载错误布局
+     */
+    @Override
+    public void showLoadErrorView() {
         showView(R.id.base_loading_error_viewstub);
     }
 
@@ -90,12 +113,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
             if (viewstubId == R.id.base_loading_error_viewstub || viewstubId == R.id.base_network_error_viewstub) {
                 View btn = view.findViewById(R.id.loading_again_btn);
                 if (btn != null)
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            loadMessage();
-                        }
-                    });
+                    btn.setOnClickListener(v -> loadMessage());
             }
 
         }
@@ -134,10 +152,110 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         isFirst=true;
+        mPresenter.detachView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+
+    /**
+     * 加载activity
+     *
+     * @param cls
+     * @param bundle
+     */
+    @Override
+    public void startActivity(Class cls, Bundle bundle) {
+
+    }
+
+    /**
+     * 加载activity
+     *
+     * @param cls
+     * @param bundle
+     * @param requestCode
+     */
+    @Override
+    public void startActivityForResult(Class cls, Bundle bundle, int requestCode) {
+
+    }
+
+    /**
+     * 加载多个activity
+     *
+     * @param bundle
+     * @param classes
+     */
+    @Override
+    public void startMoreActivity(Bundle bundle, Class... classes) {
+
+    }
+
+    /**
+     * 现在加载中的dialog
+     */
+    @Override
+    public void showLoadingDialog() {
+
+    }
+
+    /**
+     * 关闭dialog
+     */
+    @Override
+    public void stopLoadingDialog() {
+
+    }
+
+
+
+    /**
+     * 提示消息
+     *
+     * @param msg
+     */
+    @Override
+    public void showMessage(String msg) {
+
+    }
+
+    /**
+     * 关闭activity
+     */
+    @Override
+    public void closeActivity() {
+
+    }
+
+    /**
+     * 关闭activity
+     *
+     * @param resultCode
+     */
+    @Override
+    public void closeActivity(int resultCode) {
+
+    }
+
+    /**
+     * 注销账户
+     */
+    @Override
+    public void logOffUserInfo() {
+
+    }
+
+    /**
+     * 设置view的visible
+     *
+     * @param visible
+     */
+    @Override
+    public void setViewVisible(int visible) {
+
     }
 }

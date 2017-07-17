@@ -47,6 +47,5 @@ public class LoginModel implements ILoginModel {
 
             }
         };
-        observable.subscribe(observer);
     }
 }

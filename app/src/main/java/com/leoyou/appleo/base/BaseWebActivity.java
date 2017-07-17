@@ -23,10 +23,6 @@ public abstract class BaseWebActivity extends BaseActivity {
         return R.layout.activity_base_web;
     }
 
-    @Override
-    public BasePresenter getPresenter() {
-        return null;
-    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {

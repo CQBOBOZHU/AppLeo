@@ -32,7 +32,7 @@ public class DoubanController {
 
     }
 
-    interface IDoubanPresenter extends BasePresenter {
+    interface IDoubanPresenter extends BasePresenter<IDoubanView> {
         void onrefresh();
 
         void onLoadMore();

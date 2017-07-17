@@ -21,13 +21,9 @@ import java.util.List;
  * Created by Administrator on 2017/5/2.
  */
 
-public class FuliFragment extends BaseFragment<IIndexPresenter> implements IIndexView {
+public class FuliFragment extends BaseFragment<IIndexView,IndexPresenter> implements IIndexView {
 
     RecyclerView recyclerView;
-    List<FuliBean.ResultsBean> fuliBeen = new ArrayList<>();
-    private String type = "福利";
-    private int num = 10;
-    private int page = 1;
 
     public static FuliFragment newInstance(Bundle args) {
         FuliFragment fragment = new FuliFragment();
@@ -35,12 +31,6 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
             fragment.setArguments(args);
         return fragment;
     }
-
-    @Override
-    protected IIndexPresenter getPresenter() {
-        return new IndexPresenter(this);
-    }
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_index;
@@ -62,12 +52,12 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            mPresenter.initData(type, num, page);
+            mPresenter.loadFuli();
         }
     }
 
 
-    BaseRecycleViewAdapter recycleViewAdapter = new BaseRecycleViewAdapter<FuliBean.ResultsBean, BaseRecycleViewHolder>(R.layout.recycle_item, fuliBeen) {
+    BaseRecycleViewAdapter recycleViewAdapter = new BaseRecycleViewAdapter<FuliBean.ResultsBean, BaseRecycleViewHolder>(R.layout.recycle_item, null) {
         @Override
         public void onBdViewHolder(BaseRecycleViewHolder object, int position) {
             if (position % 2 == 0) {
@@ -84,14 +74,15 @@ public class FuliFragment extends BaseFragment<IIndexPresenter> implements IInde
     };
 
     public void setData(List<FuliBean.ResultsBean> resultsBeans) {
-        isFirst = false;
-        if (resultsBeans == null || resultsBeans.size() == 0) {
-            showEmptyView();
-        } else {
-            showContentView();
-            recycleViewAdapter.setmData(resultsBeans);
-            recycleViewAdapter.notifyDataSetChanged();
-        }
+        recycleViewAdapter.setmData(resultsBeans);
+//        isFirst = false;
+//        if (resultsBeans == null || resultsBeans.size() == 0) {
+//            showEmptyView();
+//        } else {
+//            showContentView();
+//            recycleViewAdapter.setmData(resultsBeans);
+//            recycleViewAdapter.notifyDataSetChanged();
+//        }
     }
 
     public void showHint(Object o) {

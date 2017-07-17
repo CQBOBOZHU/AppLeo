@@ -2,7 +2,6 @@ package com.leoyou.appleo.ui.fragment.index;
 
 
 import com.leoyou.appleo.net.CallBack;
-import com.leoyou.appleo.net.HttpUtil;
 
 
 /**
@@ -18,6 +17,5 @@ public class IndexModel  implements IIndexModel {
 
     @Override
     public void initData(String type, int num, int page) {
-        HttpUtil.getFuli(type, num, page,callBack);
     }
 }

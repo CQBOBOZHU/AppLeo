@@ -7,16 +7,12 @@ import com.leoyou.appleo.bean.OrderBean;
 
 import java.util.Map;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.http.Field;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
-import rx.Observable;
 
 /**
  * Created by Administrator on 2017/5/2.

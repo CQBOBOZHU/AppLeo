@@ -1,5 +1,6 @@
 package com.leoyou.appleo.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -15,11 +16,13 @@ import android.widget.RelativeLayout;
 import com.jaeger.library.StatusBarUtil;
 import com.leoyou.appleo.R;
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * Created by Administrator on 2017/4/20.
  */
 
-public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> extends AppCompatActivity {
+public abstract class BaseActivity<P extends BasePresenterImpl<V>, V extends BaseView> extends AppCompatActivity implements BaseView{
     public P mPresenter;
     public V mBaseView;
     View baseView;
@@ -33,10 +36,27 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mBaseView = getIView();
-        mPresenter = getPresenter();
+        mPresenter =getInstance(this,1);
+        mPresenter.attachView((V) this);
         initStatusBar();
         initView(savedInstanceState);
     }
+
+    public <T> T getInstance(Object o, int i) {
+        try {
+            return ((Class<T>) ((ParameterizedType) (o.getClass()
+                    .getGenericSuperclass())).getActualTypeArguments()[i])
+                    .newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private void initStatusBar() {
         StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent), 0);
@@ -125,12 +145,126 @@ public abstract class BaseActivity<P extends BasePresenter, V extends BaseView> 
 
     protected abstract V getIView();
 
-    public abstract P getPresenter();
-
     protected abstract void initView(Bundle savedInstanceState);
 
     public <T extends View> T getView(int viewId) {
 
         return (T) baseView.findViewById(viewId);
+    }
+
+
+    /**
+     * 加载activity
+     *
+     * @param cls
+     * @param bundle
+     */
+    @Override
+    public void startActivity(Class cls, Bundle bundle) {
+
+    }
+
+    /**
+     * 加载activity
+     *
+     * @param cls
+     * @param bundle
+     * @param requestCode
+     */
+    @Override
+    public void startActivityForResult(Class cls, Bundle bundle, int requestCode) {
+
+    }
+
+    /**
+     * 加载多个activity
+     *
+     * @param bundle
+     * @param classes
+     */
+    @Override
+    public void startMoreActivity(Bundle bundle, Class... classes) {
+
+    }
+
+    /**
+     * 现在加载中的dialog
+     */
+    @Override
+    public void showLoadingDialog() {
+
+    }
+
+    /**
+     * 关闭dialog
+     */
+    @Override
+    public void stopLoadingDialog() {
+
+    }
+
+    /**
+     * 加载错误布局
+     */
+    @Override
+    public void showLoadErrorView() {
+
+    }
+
+    /**
+     * 提示消息
+     *
+     * @param msg
+     */
+    @Override
+    public void showMessage(String msg) {
+
+    }
+
+    /**
+     * 关闭activity
+     */
+    @Override
+    public void closeActivity() {
+
+    }
+
+    /**
+     * 关闭activity
+     *
+     * @param resultCode
+     */
+    @Override
+    public void closeActivity(int resultCode) {
+
+    }
+
+    /**
+     * 注销账户
+     */
+    @Override
+    public void logOffUserInfo() {
+
+    }
+
+    /**
+     * 设置view的visible
+     *
+     * @param visible
+     */
+    @Override
+    public void setViewVisible(int visible) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }
