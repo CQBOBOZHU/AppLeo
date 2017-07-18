@@ -26,12 +26,9 @@ public class DoubanMovieAdapter extends BaseRecycleViewAdapter<DoubanMovieBean.S
         DoubanMovieBean.SubjectsBean subjectsBean=mData.get(position);
         ImageLoader.disImage(mContext,subjectsBean.getImages().getLarge(), (ImageView) viewHolder.getView(R.id.item_movie_img));
         viewHolder.setText(R.id.item_movie_title,subjectsBean.getTitle());
-        viewHolder.getView(R.id.item_movie_img).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("this","图片点击事件");
-                Toast.makeText(mContext, "我是图片点击事件", Toast.LENGTH_SHORT).show();
-            }
+        viewHolder.getView(R.id.item_movie_img).setOnClickListener(v -> {
+            Log.v("this","图片点击事件");
+            Toast.makeText(mContext, "我是图片点击事件", Toast.LENGTH_SHORT).show();
         });
     }
 }

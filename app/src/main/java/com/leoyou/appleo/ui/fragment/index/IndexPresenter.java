@@ -33,50 +33,35 @@ public class IndexPresenter extends BasePresenterImpl<IIndexView> implements IIn
     public void attachView(IIndexView view) {
         super.attachView(view);
     }
-    Disposable disposable;
+
     @Override
-    public void loadFuli() {
-        Observable<FuliBean> observable = RetroFitUtil.getRetorfit().create(ApiService.class)
-                .getFuli("福利", 10, 1);
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(fuliBean -> {
-                    LogUtil.v( "map"+Thread.currentThread().getName());
-                    return  fuliBean.getResults();
-                })
-                .doOnNext(resultsBeen -> {
-                    if (resultsBeen.size() == 0) {
-                        LogUtil.v( Thread.currentThread().getName());
-                        mView.showEmptyView();
-                    }
-                })
-                .subscribe(new Observer<List<FuliBean.ResultsBean>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                LogUtil.v("onSubscribe"+Thread.currentThread().getName());
-                disposable=d;
-            }
-
-            @Override
-            public void onNext(@NonNull List<FuliBean.ResultsBean> resultsBeen) {
-                LogUtil.v("onNext"+   Thread.currentThread().getName());
-
-                mView.setData(resultsBeen);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                LogUtil.v("onError"+Thread.currentThread().getName());
-                mView.showLoadErrorView();
-            }
-
-            @Override
-            public void onComplete() {
-                LogUtil.v("onComplete");
-            }
-        });
-
+    public void loadData(String type) {
+        loadData(type, 100, 1);
     }
 
+    @Override
+    public void loadData(String type, int count, int page) {
+        RetroFitUtil.getRetorfit()
+                .create(ApiService.class)
+                .getFuli(type, count, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(fuliBean -> fuliBean.getResults())
+                .subscribe(new CallBack<List<FuliBean.ResultsBean>>(mDisposables) {
+                    @Override
+                    protected void onFail(int code) {
+                        onViewFail(code);
+                    }
 
+                    @Override
+                    public void onNext(@NonNull List<FuliBean.ResultsBean> resultsBeen) {
+                        if (resultsBeen.size() == 0) {
+                            mView.showEmptyView();
+                        } else {
+                            mView.showContentView();
+                            mView.setData(resultsBeen);
+                        }
+                    }
+                });
+    }
 }

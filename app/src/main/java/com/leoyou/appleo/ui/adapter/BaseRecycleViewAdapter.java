@@ -64,23 +64,17 @@ public abstract class BaseRecycleViewAdapter<T, K extends BaseRecycleViewHolder>
 
     @Override
     public void onBindViewHolder(BaseRecycleViewHolder holder, final int position) {
-        holder.getRootView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (recyclerItemClickListener != null) {
-                    recyclerItemClickListener.recyclerItemClick(position);
-                }
+        holder.getRootView().setOnClickListener(v -> {
+            if (recyclerItemClickListener != null) {
+                recyclerItemClickListener.recyclerItemClick(position);
             }
         });
-        holder.getRootView().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (recyclerItemLongClickListener!=null){
-                    recyclerItemLongClickListener.recyclerItemLongClick(position);
-                    return true;
-                }
-                return false;
+        holder.getRootView().setOnLongClickListener(v -> {
+            if (recyclerItemLongClickListener!=null){
+                recyclerItemLongClickListener.recyclerItemLongClick(position);
+                return true;
             }
+            return false;
         });
         onBdViewHolder((K) holder, position);
     }

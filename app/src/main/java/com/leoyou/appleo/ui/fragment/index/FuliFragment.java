@@ -52,7 +52,7 @@ public class FuliFragment extends BaseFragment<IIndexView,IndexPresenter> implem
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            mPresenter.loadFuli();
+            mPresenter.loadData("福利");
         }
     }
 
@@ -94,7 +94,7 @@ public class FuliFragment extends BaseFragment<IIndexView,IndexPresenter> implem
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = isVisibleToUser;
-        loadData();
+//        loadData();
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import org.json.JSONException;
 
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.HttpException;
 
@@ -27,11 +28,14 @@ public class ExceptionUtil {
     private static final int GATEWAY_TIMEOUT = 504;
 
     public static final int NET_ERROE = 10001;//网络错误
-    public static final int SERVER_ERROE = 10002;//服务器错误
-    public static final int UNKNOWN_ERROE = 10003;//未知错误
-    public static final int PARSE_ERROE = 10004;//解析错误
+    public static final int NET_CONNECT = 10002;//网络连接错误
+    public static final int NET_TIMEOUT = 10003;//网络连接超时
+    public static final int SERVER_ERROE = 10004;//服务器错误
+    public static final int UNKNOWN_ERROE = 10005;//未知错误
+    public static final int PARSE_ERROE = 10006;//解析错误
 
     public static int getExceptionCode(Throwable e) {
+        e.printStackTrace();
         if (e instanceof HttpException) {
             switch (((HttpException) e).code()) {
                 case UNAUTHORIZED:
@@ -44,14 +48,14 @@ public class ExceptionUtil {
                 case GATEWAY_TIMEOUT:
                     return NET_ERROE;
             }
-        }
-//        else if (e instanceof JsonParseException
-//                || e instanceof JSONException
-//                || e instanceof ParseException) {
-//            return PARSE_ERROE;
-//        }
-        else if (e instanceof ConnectException) {
-            return NET_ERROE;
+        } else if (e instanceof JsonParseException
+                || e instanceof JSONException
+                || e instanceof ParseException) {
+            return PARSE_ERROE;
+        } else if (e instanceof ConnectException) {
+            return NET_CONNECT;
+        }else  if (e instanceof SocketTimeoutException){
+            return NET_TIMEOUT;
         }
         return UNKNOWN_ERROE;
     }

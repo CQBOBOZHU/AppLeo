@@ -66,7 +66,7 @@ public class AndroidFragment extends BaseFragment<IIndexView,IndexPresenter> imp
 
     public void loadData() {
         if (isFirst && isPrepared && isVisible) {
-            mPresenter.loadFuli();
+            mPresenter.loadData("Android");
         }
     }
 
@@ -83,7 +83,7 @@ public class AndroidFragment extends BaseFragment<IIndexView,IndexPresenter> imp
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        loadData();
+//        loadData();
     }
 
     @Override

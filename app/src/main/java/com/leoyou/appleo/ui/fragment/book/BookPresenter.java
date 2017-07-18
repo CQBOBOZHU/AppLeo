@@ -24,10 +24,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class BookPresenter extends BasePresenterImpl<BookController.IBookView> implements BookController.IBookPresenter {
-    int start = 1;
-    int count = 10;
+    int start = 0;
+    int count = 9;
     String tag = "文学";
-    Disposable loadDisposable;
 
 
     @Override
@@ -35,60 +34,68 @@ public class BookPresenter extends BasePresenterImpl<BookController.IBookView> i
         super.attachView(view);
     }
 
+    ApiService apiService;
+
     @Override
     public void loadData() {
-        start = 1;
-        ApiService apiService = RetroFitUtil.getRetorfit().create(ApiService.class);
-        apiService.getDoubanBook(tag, start, count)
+        start = 0;
+        getApiService().getDoubanBook(tag, start, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Function<BookBean, ObservableSource<List<BookBean.BooksBean>>>() {
+                .map(bookBean -> bookBean.getBooks())
+                .subscribe(new CallBack<List<BookBean.BooksBean>>(mDisposables) {
                     @Override
-                    public ObservableSource<List<BookBean.BooksBean>> apply(@NonNull BookBean bookBean) throws Exception {
-                        return (ObservableSource<List<BookBean.BooksBean>>) bookBean.getBooks();
+                    protected void onFail(int code) {
+                        mView.stopRefresh(false);
+                        onViewFail(code);
                     }
-                })
-                .doOnNext(new Consumer<List<BookBean.BooksBean>>() {
+
                     @Override
-                    public void accept(@NonNull List<BookBean.BooksBean> booksBeen) throws Exception {
-                        if (booksBeen.size()==0){
+                    public void onNext(@NonNull List<BookBean.BooksBean> booksBeen) {
+                        mView.stopRefresh(true);
+                        if (booksBeen.size() == 0) {
                             mView.showEmptyView();
+                        } else {
+                            mView.showContentView();
+                            mView.setNewData(booksBeen);
                         }
+
                     }
-                })
-                .subscribe(new Observer<List<BookBean.BooksBean>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                loadDisposable = d;
-            }
-
-            @Override
-            public void onNext(@NonNull List<BookBean.BooksBean> booksBeen) {
-                mView.setNewData(booksBeen);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-
+                });
     }
+
+    public ApiService getApiService() {
+        if (apiService == null)
+            apiService = RetroFitUtil.creatService(RetroFitUtil.API_DOUBAN).create(ApiService.class);
+        return apiService;
+    }
+
 
     @Override
     public void loadMoreData() {
-//        bookModel.loadData(tag, start++ * count + 1, count, this);
-    }
+        start=start+count;
+        getApiService().getDoubanBook(tag, start, count)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(bookBean -> bookBean.getBooks())
+                .subscribe(new CallBack<List<BookBean.BooksBean>>(mDisposables) {
+                    @Override
+                    protected void onFail(int code) {
+                        mView.stopLoadMore(false);
+                        onViewFail(code);
+                    }
 
+                    @Override
+                    public void onNext(@NonNull List<BookBean.BooksBean> booksBeen) {
+                        mView.stopLoadMore(true);
+                        if (booksBeen.size() == 0) {
+                            mView.showEmptyView();
+                        } else {
+                            mView.showContentView();
+                            mView.addData(booksBeen);
+                        }
 
-    @Override
-    public void detachView() {
-        if (loadDisposable != null && !loadDisposable.isDisposed())
-            loadDisposable.dispose();
+                    }
+                });
     }
 }

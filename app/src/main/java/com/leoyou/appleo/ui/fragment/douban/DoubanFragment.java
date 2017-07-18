@@ -12,6 +12,8 @@ import com.leoyou.appleo.ui.adapter.DoubanMovieAdapter;
 import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemClickListener;
 import com.leoyou.appleo.ui.adapter.listener.IRecyclerItemLongClickListener;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/5/5.
  */
@@ -30,72 +32,11 @@ public class DoubanFragment extends BaseFragment<DoubanController.IDoubanView,Do
         recyclerView = getView(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         doubanMovieAdapter = new DoubanMovieAdapter(R.layout.item_douban_movie, null);
-        //点击事件 方法一
         doubanMovieAdapter.setRecyclerItemClickListener(this);
         doubanMovieAdapter.setRecyclerItemLongClickListener(this);
-        //点击事件 方法二
-//        recyclerView.addOnItemTouchListener(new RecyclerItemOnTouchListener(recyclerView) {
-//            @Override
-//            public void onItemClick(RecyclerView.ViewHolder vh) {
-//                Toast.makeText(getActivity(), "当前点击的是:" +vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onLongItemClick(RecyclerView.ViewHolder vh) {
-//                Toast.makeText(getActivity(), "当前长按的是:" +vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        //点击事件 方法三
-//        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            long startTime = 0;
-//            boolean isLongPress;
-//            boolean isPress;
-//            RecyclerView.ViewHolder vh;
-//
-//            @Override
-//            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-//                Log.v("onInterceptTouchEvent", e.getX() + "==" + e.getY() + "");
-//                switch (e.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        startTime = System.currentTimeMillis();
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        long endTime = System.currentTimeMillis();
-//                        View view = rv.findChildViewUnder(e.getX(), e.getY());
-//                        vh = rv.getChildViewHolder(view);
-//                        if (endTime - startTime > 500) {
-//                            isLongPress = true;
-//                        } else {
-//                            isPress = true;
-//                            recyclerItemClick11("短时间点击", vh);
-//                        }
-//                        break;
-//                }
-//                if (isLongPress) {
-//                    recyclerItemClick11("长时间点击时间", vh);
-//                } else if (isPress) {
-//                    recyclerItemClick11("短时间点击", vh);
-//                }
-//
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-//                Log.v("onTouchEvent", e.getX() + "==" + e.getY() + "");
-//            }
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-//
-//            }
-//        });
         recyclerView.setAdapter(doubanMovieAdapter);
     }
 
-    public void recyclerItemClick11(String msg, RecyclerView.ViewHolder vh) {
-        Toast.makeText(getActivity(), msg + vh.getAdapterPosition(), Toast.LENGTH_LONG).show();
-    }
 
 
     @Override
@@ -122,15 +63,15 @@ public class DoubanFragment extends BaseFragment<DoubanController.IDoubanView,Do
     }
 
     @Override
-    public void setData(DoubanMovieBean doubanMovieBean) {
+    public void setData(List<DoubanMovieBean.SubjectsBean> subjectsBeens) {
         isFirst = false;
         showContentView();
-        doubanMovieAdapter.setmData(doubanMovieBean.getSubjects());
+        doubanMovieAdapter.setmData(subjectsBeens);
     }
 
     @Override
-    public void addData(DoubanMovieBean doubanMovieBean) {
-        doubanMovieAdapter.addData(doubanMovieBean.getSubjects());
+    public void addData(List<DoubanMovieBean.SubjectsBean> subjectsBeens) {
+        doubanMovieAdapter.addData(subjectsBeens);
     }
 
     @Override

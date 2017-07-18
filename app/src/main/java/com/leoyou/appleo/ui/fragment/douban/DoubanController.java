@@ -5,6 +5,8 @@ import com.leoyou.appleo.base.BasePresenter;
 import com.leoyou.appleo.base.BaseView;
 import com.leoyou.appleo.bean.DoubanMovieBean;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/5/5.
  */
@@ -16,21 +18,15 @@ public class DoubanController {
 
         void onLoadMore();
 
-        void setData(DoubanMovieBean doubanMovieBean);
+        void setData(List<DoubanMovieBean.SubjectsBean> subjectsBeens);
 
-        void addData(DoubanMovieBean doubanMovieBean);
+        void addData(List<DoubanMovieBean.SubjectsBean> subjectsBeens);
 
         void showHint(String msg);
 
         void showBaseView(int code);
     }
 
-    interface IDoubanModel extends BaseModel {
-        void loadData(int start, int count);
-
-        void loadMoreData(int start, int count);
-
-    }
 
     interface IDoubanPresenter extends BasePresenter<IDoubanView> {
         void onrefresh();

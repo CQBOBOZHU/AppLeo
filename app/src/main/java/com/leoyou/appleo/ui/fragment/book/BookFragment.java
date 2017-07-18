@@ -58,7 +58,6 @@ public class BookFragment extends BaseFragment<BookController.IBookView,BookPres
                 Intent intent=new Intent(getActivity(), BookDetailsActivity.class);
                 intent.putExtra("data", bookAdapter.getmData().get(vh.getAdapterPosition()));
                 getActivity().startActivity(intent);
-//                Toast.makeText(getActivity(), "点你妹"+vh.getAdapterPosition(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -187,7 +186,7 @@ public class BookFragment extends BaseFragment<BookController.IBookView,BookPres
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && xrefreshView != null&&isFirst) {
             showLoadingView();
-            loading();
+//            loading();
         }
     }
 

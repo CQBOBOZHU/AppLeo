@@ -49,7 +49,7 @@ public class RetroFitUtil {
     public static Retrofit creatService(String baseUrl) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .addInterceptor(new LoggingInterceptor.Builder()
-                        .loggable(true)
+                        .loggable(false)
                         .setLevel(Level.BASIC)
                         .log(Platform.INFO)
                         .request("Request")
@@ -63,5 +63,6 @@ public class RetroFitUtil {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
     }
+
 
 }

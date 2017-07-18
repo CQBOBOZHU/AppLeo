@@ -1,5 +1,6 @@
 package com.leoyou.appleo.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 
 import com.leoyou.appleo.R;
+import com.leoyou.appleo.util.LogUtil;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -19,7 +21,7 @@ import java.lang.reflect.ParameterizedType;
  * Created by Administrator on 2017/5/3.
  */
 
-public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImpl<V>> extends Fragment implements BaseView{
+public abstract class BaseFragment<V extends BaseView, P extends BasePresenterImpl<V>> extends Fragment implements BaseView {
     View baseView;
     public P mPresenter;
     SparseArray<View> sparseArray = new SparseArray<>();
@@ -27,9 +29,11 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
     public boolean isPrepared = false;
     public boolean isVisible = false;
     public boolean isFirst = true;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtil.v(getClass().getSimpleName()+"onCreateView");
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         baseView = layoutInflater.inflate(R.layout.fragment_base, null);
         FrameLayout contentParent = getView(R.id.base_contentView);
@@ -38,15 +42,43 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         rootView.setLayoutParams(params);
         sparseArray.put(layoutResID, rootView);
-        contentParent.addView(rootView);
-        mPresenter = getInstance(this,1);
+        mPresenter = getInstance(this, 1);
         mPresenter.attachView((V) this);
+        contentParent.addView(rootView);
         initView();
-        isPrepared=true;
+        isPrepared = true;
         return baseView;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        LogUtil.v(getClass().getSimpleName()+"onCreate");
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogUtil.v(getClass().getSimpleName()+"onAttach");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtil.v(getClass().getSimpleName()+"onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.v(getClass().getSimpleName()+"onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtil.v(getClass().getSimpleName()+"onPause");
+    }
 
 
 
@@ -82,6 +114,7 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
     public void showLoadingView() {
         showView(R.id.base_loading_viewstub);
     }
+
     /**
      * 加载错误布局
      */
@@ -120,9 +153,9 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
         view.setVisibility(View.VISIBLE);
     }
 
-    public  View  getEmptyView(){
+    public View getEmptyView() {
         View view = sparseArray.get(R.id.base_empty_viewstub);
-        if (view==null){
+        if (view == null) {
             ViewStub viewStub = getView(R.id.base_empty_viewstub);
             view = viewStub.inflate();
             sparseArray.put(R.id.base_empty_viewstub, view);
@@ -140,24 +173,31 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isVisible=isVisibleToUser;
+        isVisible = isVisibleToUser;
+        LogUtil.v(getClass().getSimpleName()+"setUserVisibleHint");
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        LogUtil.v(getClass().getSimpleName()+"onStop");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        isFirst=true;
-        mPresenter.detachView();
+        LogUtil.v(getClass().getSimpleName()+"onDestroyView");
+        isFirst = true;
+        if (mPresenter != null)
+            mPresenter.detachView();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LogUtil.v(getClass().getSimpleName()+"onDestroy");
+        if (mPresenter != null)
+            mPresenter.detachView();
     }
 
 
@@ -210,7 +250,6 @@ public abstract class BaseFragment<V extends BaseView,P extends BasePresenterImp
     public void stopLoadingDialog() {
 
     }
-
 
 
     /**
