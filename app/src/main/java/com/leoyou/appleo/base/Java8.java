@@ -118,6 +118,11 @@ public class Java8 {
     public void filter(List<String> stringCollection) {
         Stream<String> aaa = stringCollection.stream().filter(s -> s.equals("AAA"));
         aaa.forEach(s -> System.out.println(s));
+        List<UserBean> userBeens = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            userBeens.add(new UserBean("xiaoming" + i, "nan", i));
+        }
+        userBeens.stream().filter(userBean -> userBean.getId() % 10 == 0).mapToInt(UserBean::getId).sum();
     }
 
     /**
@@ -139,6 +144,7 @@ public class Java8 {
      * 下面的示例展示了将字符串转换为大写字符串。
      * 你也可以通过map来讲对象转换成其他类型，
      * map返回的Stream类型是根据你map传递进去的函数的返回值决定的。
+     *
      * @param stringCollection
      */
     public void Map(List<String> stringCollection) {
@@ -149,12 +155,13 @@ public class Java8 {
     /**
      * Stream提供了多种匹配操作，允许检测指定的Predicate是否匹配整个Stream。
      * 所有的匹配操作都是最终操作，并返回一个boolean类型的值。
+     *
      * @param stringCollection
      */
-    public  void  Match(List<String> stringCollection){
+    public void Match(List<String> stringCollection) {
         boolean a = stringCollection.stream().allMatch(s -> s.contains("A"));
-        boolean b=stringCollection.stream().anyMatch(s -> s.contains("B"));
-        boolean c=stringCollection.stream().noneMatch(s -> s.contains("B"));
+        boolean b = stringCollection.stream().anyMatch(s -> s.contains("B"));
+        boolean c = stringCollection.stream().noneMatch(s -> s.contains("B"));
     }
 
     /**
@@ -162,7 +169,7 @@ public class Java8 {
      * 计数是一个最终操作，返回Stream中元素的个数，
      * 返回值类型是long。
      */
-    public  void  Count(List<String> stringCollection){
+    public void Count(List<String> stringCollection) {
         long count = stringCollection.stream().count();
     }
 
@@ -170,7 +177,21 @@ public class Java8 {
      * 这是一个最终操作，允许通过指定的函数来讲stream中的多个元素规约为一个元素，
      * 规越后的结果是通过Optional接口表示的：
      */
-    public void Reduce(List<String> stringCollection){
+    public void Reduce(List<String> stringCollection) {
 //        stringCollection.stream().reduce()
+    }
+
+    public void text(List<UserBean> userBeens) {
+//        userBeens.stream().fl
+    }
+
+    /**
+     * peek
+     * peek: 生成一个包含原Stream的所有元素的新Stream，
+     * 同时会提供一个消费函数（Consumer实例），
+     * 新Stream每个元素被消费的时候都会执行给定的消费函数；
+     */
+    public void peek() {
+
     }
 }
