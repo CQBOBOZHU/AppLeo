@@ -45,7 +45,7 @@ public class DoubanPresenter extends BasePresenterImpl<DoubanController.IDoubanV
                     }
 
                     @Override
-                    protected void onFail(int code) {
+                    protected void onFail(int code, String msg) {
                         onViewFail(code);
                     }
                 });

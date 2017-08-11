@@ -49,7 +49,7 @@ public class IndexPresenter extends BasePresenterImpl<IIndexView> implements IIn
                 .map(fuliBean -> fuliBean.getResults())
                 .subscribe(new CallBack<List<FuliBean.ResultsBean>>(mDisposables) {
                     @Override
-                    protected void onFail(int code) {
+                    protected void onFail(int code,String  msg) {
                         onViewFail(code);
                     }
 

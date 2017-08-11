@@ -16,7 +16,7 @@ import com.leoyou.appleo.base.BaseActivity;
  * Created by Administrator on 2017/4/20.
  */
 
-public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> implements ILoginView {
+public class LoginActivity extends BaseActivity< ILoginView,LoginPresenter> implements ILoginView {
     private TextInputLayout account_tvLy;
     private TextInputLayout password_tvLy;
     private EditText account_edt;
@@ -30,10 +30,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILoginView> impl
         return R.layout.toolbar;
     }
 
-    @Override
-    protected ILoginView getIView() {
-        return this;
-    }
 
     @Override
     protected int getLayoutId() {

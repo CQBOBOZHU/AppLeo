@@ -3,6 +3,7 @@ package com.leoyou.appleo.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
 import com.leoyou.appleo.R;
@@ -22,9 +24,9 @@ import java.lang.reflect.ParameterizedType;
  * Created by Administrator on 2017/4/20.
  */
 
-public abstract class BaseActivity<P extends BasePresenterImpl<V>, V extends BaseView> extends AppCompatActivity implements BaseView{
+public abstract class BaseActivity<V extends BaseView,P extends BasePresenter<V> > extends AppCompatActivity implements BaseView{
     public P mPresenter;
-    public V mBaseView;
+//    public V mBaseView;
     View baseView;
     View contentView;
     SparseArray<View> sparseArray = new SparseArray<>();
@@ -35,7 +37,6 @@ public abstract class BaseActivity<P extends BasePresenterImpl<V>, V extends Bas
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        mBaseView = getIView();
         mPresenter =getInstance(this,1);
         mPresenter.attachView((V) this);
         initStatusBar();
@@ -143,7 +144,7 @@ public abstract class BaseActivity<P extends BasePresenterImpl<V>, V extends Bas
 
     protected abstract int getLayoutId();
 
-    protected abstract V getIView();
+//    protected abstract V getIView();
 
     protected abstract void initView(Bundle savedInstanceState);
 
@@ -266,5 +267,15 @@ public abstract class BaseActivity<P extends BasePresenterImpl<V>, V extends Bas
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void showToastMessage(@NonNull String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showToastLongMessage(@NonNull String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

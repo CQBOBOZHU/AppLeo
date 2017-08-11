@@ -13,10 +13,6 @@ import com.leoyou.appleo.R;
 public abstract class BaseWebActivity extends BaseActivity {
     WebView baseWebView;
 
-    @Override
-    protected BaseView getIView() {
-        return null;
-    }
 
     @Override
     protected int getLayoutId() {

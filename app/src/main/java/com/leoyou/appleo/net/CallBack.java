@@ -26,8 +26,7 @@ public abstract class CallBack<T> implements Observer<T> {
 
 
     public void onError(Throwable e) {
-        int code = ExceptionUtil.getExceptionCode(e);
-        onFail(code);
+        onFail(ExceptionUtil.getExceptionCode(e),ExceptionUtil.getExceptionMessage(e));
     }
 
     @Override
@@ -35,7 +34,7 @@ public abstract class CallBack<T> implements Observer<T> {
 
     }
 
-    protected abstract void onFail(int code);
+    protected abstract void onFail(int code,String message);
 
 
 }

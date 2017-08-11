@@ -2,6 +2,7 @@ package com.leoyou.appleo.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 /**
  * Created by Administrator on 2017/4/20.
@@ -97,4 +98,16 @@ public interface BaseView {
      * @param visible
      */
     void setViewVisible(int visible);
+
+    /**
+     * 显示toast
+     * @param message
+     */
+    void  showToastMessage(@NonNull String message);
+
+    /**
+     * 长时间显示toast
+     * @param message
+     */
+    void  showToastLongMessage(@NonNull String message);
 }

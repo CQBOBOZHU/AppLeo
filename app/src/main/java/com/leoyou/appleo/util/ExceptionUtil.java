@@ -59,4 +59,34 @@ public class ExceptionUtil {
         }
         return UNKNOWN_ERROE;
     }
+
+
+    public static String getExceptionMessage(Throwable e) {
+        e.printStackTrace();
+        if (e instanceof HttpException) {
+            switch (((HttpException) e).code()) {
+                case UNAUTHORIZED:
+                case FORBIDDEN:
+                case NOT_FOUND:
+                case REQUEST_TIMEOUT:
+                case INTERNAL_SERVER_ERROR:
+                case BAD_GATEWAY:
+                case SERVICE_UNAVAILABLE:
+                case GATEWAY_TIMEOUT:
+                    return "网络错误";
+            }
+        } else if (e instanceof JsonParseException
+                || e instanceof JSONException
+                || e instanceof ParseException) {
+            return "解析出错";
+        } else if (e instanceof ConnectException) {
+            return "网络连接出错";
+        }else  if (e instanceof SocketTimeoutException){
+            return "网络连接超时";
+        }
+        if (e.getMessage()!=null){
+            return e.getMessage();
+        }
+        return "未知错误";
+    }
 }

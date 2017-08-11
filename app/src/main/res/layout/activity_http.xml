@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="协议"
+                android:textColor="@color/colorAccent" />
+
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/http_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/selector_checkbox_bg"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="http" />
+
+                <RadioButton
+                    android:id="@+id/https_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_checkbox_bg"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="https" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="域名"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/domain_edt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_edt"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="192.168.99.163" />
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="端口"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/port_edt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_edt"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="9090" />
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="路径"
+                android:textColor="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/path_edt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_edt"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="index/login.do" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/url_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:background="@drawable/shape_edt"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="index/login.do" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="请求头"
+                android:textColor="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+                <EditText
+                    android:id="@+id/header_key1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_key"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/header_value1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_value1"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+                <EditText
+                    android:id="@+id/header_key2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_key2"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/header_value2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_value2"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+                <EditText
+                    android:id="@+id/header_key3"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_key3"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/header_value3"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="header_value3"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="添加更多header"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="请求方式"
+                android:textColor="@color/colorAccent" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/http_method_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/selector_checkbox_bg"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="post" />
+
+                <RadioButton
+                    android:id="@+id/http_method_get"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/selector_checkbox_bg"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="get" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="参赛"
+                    android:textColor="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="清除所有参赛"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key1"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value1"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key2"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value2"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key3"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key3"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value3"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value3"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key4"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key4"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_valu4"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value4"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key5"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key5"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value5"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value5"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key6"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key6"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value6"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value6"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key7"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key7"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value7"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value7"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key8"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key8"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value8"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value8"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/params_key9"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_key9"
+                    android:singleLine="true" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/params_value9"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edt"
+                    android:gravity="center"
+                    android:hint="params_value9"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="添加更多params"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorAccent"
+            android:text="确定"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

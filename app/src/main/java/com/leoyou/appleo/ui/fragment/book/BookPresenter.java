@@ -1,7 +1,6 @@
 package com.leoyou.appleo.ui.fragment.book;
 
 import com.leoyou.appleo.base.BasePresenterImpl;
-import com.leoyou.appleo.base.BaseView;
 import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.net.ApiService;
 import com.leoyou.appleo.net.CallBack;
@@ -9,14 +8,8 @@ import com.leoyou.appleo.net.RetroFitUtil;
 
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -45,7 +38,7 @@ public class BookPresenter extends BasePresenterImpl<BookController.IBookView> i
                 .map(bookBean -> bookBean.getBooks())
                 .subscribe(new CallBack<List<BookBean.BooksBean>>(mDisposables) {
                     @Override
-                    protected void onFail(int code) {
+                    protected void onFail(int code, String msg) {
                         mView.stopRefresh(false);
                         onViewFail(code);
                     }
@@ -73,14 +66,14 @@ public class BookPresenter extends BasePresenterImpl<BookController.IBookView> i
 
     @Override
     public void loadMoreData() {
-        start=start+count;
+        start = start + count;
         getApiService().getDoubanBook(tag, start, count)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(bookBean -> bookBean.getBooks())
                 .subscribe(new CallBack<List<BookBean.BooksBean>>(mDisposables) {
                     @Override
-                    protected void onFail(int code) {
+                    protected void onFail(int code, String msg) {
                         mView.stopLoadMore(false);
                         onViewFail(code);
                     }

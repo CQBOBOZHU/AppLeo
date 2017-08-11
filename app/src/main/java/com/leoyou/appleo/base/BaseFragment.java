@@ -2,6 +2,7 @@ package com.leoyou.appleo.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.leoyou.appleo.R;
 import com.leoyou.appleo.util.LogUtil;
@@ -296,5 +298,15 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenterIm
     @Override
     public void setViewVisible(int visible) {
 
+    }
+
+    @Override
+    public void showToastMessage(@NonNull String message) {
+        ((BaseActivity)getActivity()).showToastMessage(message);
+    }
+
+    @Override
+    public void showToastLongMessage(@NonNull String message) {
+        ((BaseActivity)getActivity()).showToastLongMessage(message);
     }
 }

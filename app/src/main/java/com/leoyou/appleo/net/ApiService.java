@@ -4,6 +4,7 @@ import com.leoyou.appleo.bean.BookBean;
 import com.leoyou.appleo.bean.DoubanMovieBean;
 import com.leoyou.appleo.bean.FuliBean;
 import com.leoyou.appleo.bean.OrderBean;
+import com.leoyou.appleo.bean.QueryBean;
 
 import java.util.Map;
 
@@ -38,4 +39,7 @@ public interface ApiService {
     @GET("/v2/book/search")
     Observable<BookBean> getDoubanBook(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
 
+    @GET("/api/search/query/listview/category/{type}/count/{count}/page/{page} ")
+    Observable<QueryBean> getQueryList(@Path("type")String type, @Path("count")int count, @Path("page")int page);
+    // all | Android | iOS | 休息视频 | 福利 | 拓展资源 | 前端 | 瞎推荐 | App
 }
